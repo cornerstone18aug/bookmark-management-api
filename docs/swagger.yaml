@@ -1,0 +1,197 @@
+swagger: '2.0'
+info:
+  description: For operations to controll bookmarks made by Bookmanager
+  version: 1.0.0
+  title: Bookmanager API
+host: 0.0.0.0
+basePath: /bookmanager
+tags:
+  - name: Category
+    description: Suggested category by another API
+  - name: Node
+    description: Manipulate a node and its list
+schemes:
+  - https
+paths:
+  /categories:
+    get:
+      tags:
+        - Category
+      summary: Fetch the category from a parameter url
+      parameters:
+        - in: header
+          name: X-Access-Token
+          type: string
+          description: Granted by Cognito
+          required: true
+        - in: query
+          name: url
+          type: string
+          description: URL you wanna know the category of
+          required: true
+      responses:
+        '200':
+          description: ok
+          schema:
+            type: object
+            properties:
+              categories:
+                type: array
+                items:
+                  $ref: '#/definitions/Category'
+            example:
+              categories:
+                - categoryName: technology
+                  acuracy: 78
+                - categoryName: React
+                  acuracy: 25
+                - categoryName: JavaScript
+                  acuracy: 12
+        '401':
+          description: Authentication needed
+  '/node/{id}':
+    get:
+      tags:
+      - Node
+      summary: Fetch a node
+      parameters:
+        - in: header
+          name: X-Access-Token
+          type: string
+          description: Granted by Cognito
+          required: true
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        '200':
+          description: ok
+          schema:
+            $ref: '#/definitions/Node'
+        '401':
+          description: Authentication needed
+    put:
+      tags:
+      - Node
+      summary: Update a node
+      parameters:
+        - in: header
+          name: X-Access-Token
+          type: string
+          description: Granted by Cognito
+          required: true
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: Created node object
+          required: true
+          schema:
+            $ref: '#/definitions/Node'
+      responses:
+        '200':
+          description: ok
+          schema:
+            $ref: '#/definitions/Node'
+        '401':
+          description: Authentication needed
+  /node:
+    post:
+      tags:
+        - Node
+      summary: Create a new node
+      parameters:
+        - in: header
+          name: X-Access-Token
+          type: string
+          description: Granted by Cognito
+          required: true
+        - in: body
+          name: body
+          description: Created node object
+          required: true
+          schema:
+            $ref: '#/definitions/Node'
+      responses:
+        default:
+          description: successful operation
+  /nodeList:
+    get:
+      tags:
+        - Node
+      summary: Fetch all node list
+      parameters:
+        - in: header
+          name: X-Access-Token
+          type: string
+          description: Granted by Cognito
+          required: true
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/NodeList'
+        '401':
+          description: Authentication needed
+definitions:
+  Category:
+    type: object
+    properties:
+      categoryName:
+        type: string
+      accuracy:
+        type: integer
+  Node:
+    type: object
+    required:
+      - nodeId
+    properties:
+      nodeId:
+        type: string
+        description: = directory name or url name
+      isDirectory:
+        type: boolean
+      organizedUrl:
+        $ref: '#/definitions/OrganizedUrl'
+      parentNodeId:
+        type: string
+  NodeList:
+    type: array
+    items:
+      $ref: '#/definitions/Node'
+  User:
+    type: object
+    required:
+      - userId
+    properties:
+      userId:
+        description: = email address
+        type: string
+      userName:
+        type: string
+      password:
+        type: string
+  OrganizedUrl:
+    type: object
+    required:
+      - displayName
+    properties:
+      displayName:
+        type: string
+      url:
+        type: string
+      categories:
+        type: array
+        items:
+          type: string
+      tags:
+        type: array
+        items:
+          type: string
+externalDocs:
+  description: Database Definition
+  url: >-
+    https://docs.google.com/spreadsheets/d/1RZ4gareHaxyZohI7g4qpByagIgquNon96dim96AN00g/edit#gid=0
