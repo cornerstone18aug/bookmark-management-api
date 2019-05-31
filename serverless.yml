@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: bookmark-management-api2 # NOTE: update this with your service name
+service: bookmark-management-api # NOTE: update this with your service name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -22,8 +22,8 @@ provider:
   runtime: java8
 
 # you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
+  stage: dev
+  region: us-west-2
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -47,19 +47,19 @@ provider:
 
 # you can add packaging information here
 package:
-  artifact: build/distributions/hello.zip
+  artifact: build/distributions/bookmanager.zip
 
 functions:
-  hello:
-    handler: com.serverless.Handler
+  bookmanager:
+    handler: ciccc.wamdAug18.Handler
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
-#    events:
-#      - http:
-#          path: users/create
-#          method: get
+    events:
+      - http:
+          path: bookmarks
+          method: get
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)

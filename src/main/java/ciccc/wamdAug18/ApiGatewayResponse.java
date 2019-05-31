@@ -1,4 +1,4 @@
-package com.serverless;
+package ciccc.wamdAug18;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
