@@ -1,4 +1,4 @@
-package ciccc.wamdAug18;
+package ciccc.wmadAug18;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

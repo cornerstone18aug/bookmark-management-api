@@ -1,4 +1,4 @@
-package ciccc.wamdAug18;
+package ciccc.wmadAug18;
 
 import java.util.Collections;
 import java.util.Map;
