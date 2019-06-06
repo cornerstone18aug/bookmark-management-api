@@ -52,7 +52,7 @@ paths:
   '/node/{id}':
     get:
       tags:
-      - Node
+        - Node
       summary: Fetch a node
       parameters:
         - in: header
@@ -73,7 +73,7 @@ paths:
           description: Authentication needed
     put:
       tags:
-      - Node
+        - Node
       summary: Update a node
       parameters:
         - in: header
@@ -96,6 +96,25 @@ paths:
           description: ok
           schema:
             $ref: '#/definitions/Node'
+        '401':
+          description: Authentication needed
+    delete:
+      tags:
+        - Node
+      summary: Delete a node
+      parameters:
+        - in: header
+          name: X-Access-Token
+          type: string
+          description: Granted by Cognito
+          required: true
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        '200':
+          description: ok
         '401':
           description: Authentication needed
   /node:
